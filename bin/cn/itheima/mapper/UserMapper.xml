@@ -11,6 +11,27 @@ mapper接口代理实现编写规则:
  -->
 <mapper namespace="cn.itheima.mapper.UserMapper">
 
+
+<resultMap type="cn.itheima.pojo.User" id="userResultMapper">
+
+<!-- 	private int id; -->
+<!-- 	private String username;// 用户姓名 -->
+<!-- 	private String sex;// 性别 -->
+<!-- 	private Date birthday;// 生日 -->
+<!-- 	private String address;// 地址 -->
+<!-- 	private String age; -->
+
+	<id column="id" property="id" jdbcType="BIGINT" />
+	<result column="username" property="username" jdbcType="VARCHAR" />
+	<result column="sex" property="sex" jdbcType="VARCHAR" />
+	<result column="birthday" property="birthday" jdbcType="DATE" />
+	<result column="address" property="address" jdbcType="VARCHAR" />
+	<result column="age" property="age" jdbcType="VARCHAR" />
+
+</resultMap>
+
+
+
 	<!-- 
 	id:sql语句唯一标识
 	parameterType:指定传入参数类型
@@ -58,4 +79,31 @@ mapper接口代理实现编写规则:
 	</if>
 	
 	</select>
+	
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+
+	INSERT INTO user(username,age)
+
+	VALUES
+
+	<foreach collection="list" item="user" separator=",">
+		(
+		#{user.username,jdbcType=VARCHAR},
+		#{user.age}
+		)
+	</foreach>
+
+	</insert>
+
+	<insert id="insertBatch01" parameterType="java.util.List">
+
+		INSERT INTO user(username,age)
+
+		VALUES
+
+	('cbw','20'),('cbw02','10')
+
+	</insert>
+	
 </mapper>

@@ -1,8 +1,10 @@
 package mybatis0523;
 
 import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.*;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -105,5 +107,50 @@ public class UserMapperTest {
 		System.out.println(list);
 		
 //		openSession.commit();
+	}
+	
+	@Test
+	public void testBatch() throws Exception {
+		
+		SqlSession openSession = factory.openSession();
+		//通过getMapper方法来实例化接口
+		UserMapper mapper = openSession.getMapper(UserMapper.class);
+		
+		List<User> list = new ArrayList<User>();
+		
+		User user1 = new User();
+		user1.setUsername("cbw01");
+		user1.setAge("10");
+		
+		User user2 = new User();
+		user2.setUsername("cbw02");
+		user2.setAge("20");
+		
+		//设置用户2
+		list.add(user1);
+		list.add(user2);
+		
+		mapper.insertBatch(list);
+		
+		openSession.commit();
+
+	}
+	
+	@Test
+	public void test0000() throws Exception {
+		
+
+			
+			SqlSession openSession = factory.openSession();
+			//通过getMapper方法来实例化接口
+			UserMapper mapper = openSession.getMapper(UserMapper.class);
+			
+			
+			mapper.insertBatch01(null);
+			
+			openSession.commit();
+
+		
+		
 	}
 }

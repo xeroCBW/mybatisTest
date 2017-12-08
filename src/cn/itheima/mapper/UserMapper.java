@@ -9,12 +9,15 @@ import cn.itheima.pojo.User;
 public interface UserMapper {
 
 	public User findUserById(Integer id);
-	
-	//动态代理形势中,如果返回结果集问List,那么mybatis会在生成实现类的使用会自动调用selectList方法
+
+	// 动态代理形势中,如果返回结果集问List,那么mybatis会在生成实现类的使用会自动调用selectList方法
 	public List<User> findUserByUserName(String userName);
-	
+
 	public void insertUser(User user);
-	
-	
-	public List<User> findUser(@Param(value = "sex") String sex,@Param(value = "age") String age);
+
+	public List<User> findUser(@Param(value = "sex") String sex, @Param(value = "age") String age);
+
+	public int insertBatch(List<User> list);
+
+	public int insertBatch01(List<User> list);
 }
